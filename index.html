@@ -13,7 +13,7 @@
     :root {
       --tx-blue:   #002868;
       --tx-red:    #BF0A30;
-      --tx-white:  #FFFFFF; /* Changed to pure white */
+      --tx-white:  #F5F1E8;
       --tx-navy:   #001540;
       --tx-cream:  #FAF7F0;
       --tx-sand:   #E8E2D4;
@@ -46,7 +46,7 @@
     .nav-brand {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 1.1rem; font-weight: 700; letter-spacing: 0.06em;
-      color: #F5F1E8; text-transform: uppercase;
+      color: var(--tx-white); text-transform: uppercase;
       line-height: 1.2;
     }
     .nav-brand span { color: var(--tx-red); }
@@ -74,50 +74,43 @@
     .hero {
       min-height: 100vh;
       display: grid;
-      /* Split: 1/3 Blue Left, 2/3 Right (White/Red split) */
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 1fr 1fr;
       padding-top: 64px;
     }
     .hero-left {
       background: var(--tx-blue);
-      display: flex; 
-      align-items: center; 
+      display: flex; flex-direction: column;
       justify-content: center;
+      padding: 5rem 3.5rem 5rem 4rem;
       position: relative;
       overflow: hidden;
     }
-    /* Cleaned up and perfectly centered background star */
-    .hero-left-star {
-      font-size: clamp(16rem, 25vw, 28rem);
-      color: rgba(255,255,255,0.05);
+    .hero-left::before {
+      content: '★';
+      position: absolute;
+      bottom: -40px; left: -30px;
+      font-size: 22rem;
+      color: rgba(255,255,255,0.04);
       line-height: 1;
       pointer-events: none;
-      user-select: none;
-    }
-    .hero-right {
-      display: flex; 
-      flex-direction: column;
-    }
-    .hero-content {
-      padding: 5rem 3.5rem 4rem 4rem;
     }
     .hero-eyebrow {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--tx-navy);
+      color: rgba(255,255,255,0.7);
       margin-bottom: 1.2rem;
       display: flex; align-items: center; gap: 0.6rem;
     }
     .hero-eyebrow::before {
       content: ''; display: block;
-      width: 32px; height: 2px; background: var(--tx-red);
+      width: 32px; height: 2px; background: rgba(255,255,255,0.5);
     }
     .hero-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2.8rem, 4.5vw, 4.2rem);
       font-weight: 900; line-height: 1.05;
-      color: var(--tx-navy);
+      color: #fff;
       margin-bottom: 1.5rem;
     }
     .hero-title em {
@@ -126,23 +119,11 @@
     }
     .hero-sub {
       font-size: 1.05rem; font-weight: 300; line-height: 1.75;
-      color: #444;
+      color: rgba(245,241,232,0.75);
       max-width: 420px;
       margin-bottom: 2.5rem;
     }
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-outline {
-      background: transparent;
-      color: var(--tx-navy);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; text-decoration: none;
-      padding: 0.85rem 2rem;
-      border: 2px solid rgba(0,21,64,0.3);
-      transition: all 0.2s;
-      display: inline-block;
-    }
-    .btn-outline:hover { border-color: var(--tx-navy); background: rgba(0,21,64,0.05); }
     .btn-primary {
       background: var(--tx-red);
       color: #fff;
@@ -155,12 +136,21 @@
       display: inline-block;
     }
     .btn-primary:hover { background: transparent; color: var(--tx-red); }
+    .btn-outline {
+      background: transparent;
+      color: var(--tx-white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      padding: 0.85rem 2rem;
+      border: 2px solid rgba(245,241,232,0.4);
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--tx-white); }
 
-    /* Flag Splits */
-    .flag-split-container {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
+    .hero-right {
+      display: flex; flex-direction: column;
     }
     .hero-white {
       flex: 1;
@@ -200,14 +190,14 @@
       width: 90px; height: 90px;
     }
     .hero-star polygon {
-      fill: #fff;
+      fill: none;
       stroke: #fff;
       stroke-width: 3;
     }
 
     /* ── STRIPE ── */
     .stripe {
-      background: #F5F1E8;
+      background: var(--tx-white);
       padding: 0.9rem 4rem;
       display: flex; align-items: center; gap: 3rem;
       overflow: hidden; white-space: nowrap;
@@ -258,9 +248,10 @@
       cursor: default;
     }
     .service-card:hover { background: var(--tx-blue); }
+    .service-card:hover .service-icon { color: var(--tx-gold); }
     .service-card:hover .service-name { color: #fff; }
     .service-card:hover .service-desc { color: rgba(245,241,232,0.7); }
-    .service-card:hover .service-line { background: #fff; }
+    .service-card:hover .service-line { background: var(--tx-gold); }
     .service-icon {
       font-size: 2rem; color: var(--tx-blue);
       margin-bottom: 1.2rem;
@@ -414,6 +405,7 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
+      .hero-right { min-height: 200px; }
       .why-section { grid-template-columns: 1fr; gap: 3rem; }
       .contact-section { grid-template-columns: 1fr; gap: 3rem; }
       .nav-links { display: none; }
@@ -453,38 +445,29 @@
 
 <!-- HERO -->
 <section class="hero">
-  <!-- 1/3 Width Blue container with a perfectly centered star -->
   <div class="hero-left">
-    <div class="hero-left-star">★</div>
-  </div>
-  
-  <!-- 2/3 Width container holding text copy and the split red/white flag blocks -->
-  <div class="hero-right">
-    <div class="hero-content">
-      <p class="hero-eyebrow">Serving Texas with Pride</p>
-      <h1 class="hero-title">
-        Built Tough.<br>Finished <em>Beautiful.</em>
-      </h1>
-      <p class="hero-sub">
-        From fresh paint to full remodels, Lonestar Remodel &amp; Paint LLC brings craftsmanship and Texas work ethic to every project — residential and commercial.
-      </p>
-      <div class="hero-btns">
-        <a href="#contact" class="btn-primary">Get a Free Estimate</a>
-        <a href="#services" class="btn-outline">Our Services</a>
-        <a href="gallery.html" class="btn-outline">View Gallery</a>
-      </div>
+    <p class="hero-eyebrow">Serving Texas with Pride</p>
+    <h1 class="hero-title">
+      Built Tough.<br>Finished <em>Beautiful.</em>
+    </h1>
+    <p class="hero-sub">
+      From fresh paint to full remodels, Lonestar Remodel &amp; Paint LLC brings craftsmanship and Texas work ethic to every project — residential and commercial.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-outline">Get a Free Estimate</a>
+      <a href="#services" class="btn-outline">Our Services</a>
+      <a href="gallery.html" class="btn-outline">View Gallery</a>
+      <a href="#reviews" class="btn-outline">Read Reviews</a>
     </div>
-    
-    <!-- Split section layout representing the fly of the Texas flag -->
-    <div class="flag-split-container">
-      <div class="hero-white">
-        <p class="hero-white-text">Texas Tough</p>
-      </div>
-      <div class="hero-red">
-        <svg class="hero-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="50,4 61,36 95,36 67,56 78,90 50,69 22,90 33,56 5,36 39,36" />
-        </svg>
-      </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-white">
+      <p class="hero-white-text">Texas Tough</p>
+    </div>
+    <div class="hero-red">
+      <svg class="hero-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="50,4 61,36 95,36 67,56 78,90 50,69 22,90 33,56 5,36 39,36" />
+      </svg>
     </div>
   </div>
 </section>
@@ -572,6 +555,8 @@
   <h2 class="section-title">What Our Clients Say</h2>
   <p class="reviews-intro">We're proud of the work we do — see what our clients are saying on Google, or leave a review of your own if you've worked with us.</p>
   <div class="reviews-actions">
+    <!-- TODO: Replace this href with your real Google Business Profile review link
+         once your Google account is verified, e.g. https://g.page/r/YOUR_REVIEW_CODE/review -->
     <a href="https://g.page/r/REPLACE-WITH-YOUR-GOOGLE-REVIEW-LINK/review" target="_blank" rel="noopener" class="btn-primary">★ View &amp; Leave Reviews on Google</a>
   </div>
 </section>
