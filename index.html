@@ -74,26 +74,29 @@
     .hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      /* Fixed flag proportions: 1/3 blue left, 2/3 right side splits */
+      grid-template-columns: 1fr 2fr;
       padding-top: 64px;
     }
     .hero-left {
       background: var(--tx-blue);
       display: flex; flex-direction: column;
       justify-content: center;
-      padding: 5rem 3.5rem 5rem 4rem;
+      align-items: center;
+      padding: 5rem 2rem;
       position: relative;
       overflow: hidden;
     }
-    .hero-left::before {
-      content: '★';
-      position: absolute;
-      bottom: -40px; left: -30px;
-      font-size: 22rem;
-      color: rgba(255,255,255,0.04);
-      line-height: 1;
-      pointer-events: none;
+    /* Centered main white star styling */
+    .hero-center-star {
+      width: clamp(140px, 18vw, 240px);
+      height: clamp(140px, 18vw, 240px);
+      z-index: 1;
     }
+    .hero-center-star polygon {
+      fill: rgba(255, 255, 255, 0.06);
+    }
+    
     .hero-eyebrow {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em;
@@ -151,6 +154,9 @@
 
     .hero-right {
       display: flex; flex-direction: column;
+      background: var(--tx-cream);
+      padding: 5rem 3.5rem 5rem 4rem;
+      justify-content: center;
     }
     .hero-white {
       flex: 1;
@@ -190,7 +196,7 @@
       width: 90px; height: 90px;
     }
     .hero-star polygon {
-      fill: none;
+      fill: #fff;
       stroke: #fff;
       stroke-width: 3;
     }
@@ -405,7 +411,7 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
-      .hero-right { min-height: 200px; }
+      .hero-right { min-height: 350px; }
       .why-section { grid-template-columns: 1fr; gap: 3rem; }
       .contact-section { grid-template-columns: 1fr; gap: 3rem; }
       .nav-links { display: none; }
@@ -445,7 +451,15 @@
 
 <!-- HERO -->
 <section class="hero">
+  <!-- 1/3 Width Blue container with perfectly centered large white star -->
   <div class="hero-left">
+    <svg class="hero-center-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,4 61,36 95,36 67,56 78,90 50,69 22,90 33,56 5,36 39,36" />
+    </svg>
+  </div>
+  
+  <!-- 2/3 Width container holding text and split sections -->
+  <div class="hero-right">
     <p class="hero-eyebrow">Serving Texas with Pride</p>
     <h1 class="hero-title">
       Built Tough.<br>Finished <em>Beautiful.</em>
@@ -457,17 +471,18 @@
       <a href="#contact" class="btn-outline">Get a Free Estimate</a>
       <a href="#services" class="btn-outline">Our Services</a>
       <a href="gallery.html" class="btn-outline">View Gallery</a>
-      <a href="#reviews" class="btn-outline">Read Reviews</a>
     </div>
-  </div>
-  <div class="hero-right">
-    <div class="hero-white">
-      <p class="hero-white-text">Texas Tough</p>
-    </div>
-    <div class="hero-red">
-      <svg class="hero-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="50,4 61,36 95,36 67,56 78,90 50,69 22,90 33,56 5,36 39,36" />
-      </svg>
+    
+    <!-- White Top / Red Bottom split panels -->
+    <div style="display: flex; flex-direction: column; flex: 1; margin-top: 2rem; min-height: 240px; border: 1px solid var(--tx-sand)">
+      <div class="hero-white">
+        <p class="hero-white-text">Texas Tough</p>
+      </div>
+      <div class="hero-red">
+        <svg class="hero-star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="50,4 61,36 95,36 67,56 78,90 50,69 22,90 33,56 5,36 39,36" />
+        </svg>
+      </div>
     </div>
   </div>
 </section>
@@ -555,8 +570,6 @@
   <h2 class="section-title">What Our Clients Say</h2>
   <p class="reviews-intro">We're proud of the work we do — see what our clients are saying on Google, or leave a review of your own if you've worked with us.</p>
   <div class="reviews-actions">
-    <!-- TODO: Replace this href with your real Google Business Profile review link
-         once your Google account is verified, e.g. https://g.page/r/YOUR_REVIEW_CODE/review -->
     <a href="https://g.page/r/REPLACE-WITH-YOUR-GOOGLE-REVIEW-LINK/review" target="_blank" rel="noopener" class="btn-primary">★ View &amp; Leave Reviews on Google</a>
   </div>
 </section>
