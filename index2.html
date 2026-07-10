@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lonestar Paint & Remodel LLC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --tx-blue:   #002868;
+      --tx-red:    #BF0A30;
+      --tx-white:  #F5F1E8;
+      --tx-navy:   #001540;
+      --tx-cream:  #FAF7F0;
+      --tx-sand:   #E8E2D4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--tx-cream);
+      color: var(--tx-navy);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--tx-navy);
+      border-bottom: 3px solid var(--tx-red);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 64px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .nav-star {
+      font-size: 1.6rem; color: #fff; line-height: 1;
+    }
+    .nav-brand {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 700; letter-spacing: 0.06em;
+      color: var(--tx-white); text-transform: uppercase;
+      line-height: 1.2;
+    }
+    .nav-brand span { color: var(--tx-red); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      color: var(--tx-sand);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: var(--tx-red); color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      padding: 0.5rem 1.25rem;
+      border: 2px solid var(--tx-red);
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: transparent; color: var(--tx-red); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 64px;
+    }
+    .hero-left {
+      background: var(--tx-blue);
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 5rem 3.5rem 5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left::before {
+      content: '★';
+      position: absolute;
+      bottom: -40px; left: -30px;
+      font-size: 22rem;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 32px; height: 2px; background: rgba(255,255,255,0.5);
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+      font-weight: 900; line-height: 1.05;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--tx-red);
+    }
+    .hero-sub {
+      font-size: 1.05rem; font-weight: 300; line-height: 1.75;
+      color: rgba(245,241,232,0.75);
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--tx-red);
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      padding: 0.85rem 2rem;
+      border: 2px solid var(--tx-red);
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: transparent; color: var(--tx-red); }
+    .btn-outline {
+      background: transparent;
+      color: var(--tx-white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      padding: 0.85rem 2rem;
+      border: 2px solid rgba(245,241,232,0.4);
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--tx-white); }
+
+    .hero-right {
+      background: var(--tx-red);
+      position: relative; overflow: hidden;
+      display: flex; align-items: flex-end;
+      padding: 3rem;
+    }
+    .hero-right::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 20px,
+          rgba(0,0,0,0.04) 20px,
+          rgba(0,0,0,0.04) 21px
+        );
+    }
+    .hero-badge {
+      position: relative; z-index: 1;
+      background: var(--tx-navy);
+      border: 2px solid rgba(255,255,255,0.5);
+      padding: 1.5rem 2rem;
+      max-width: 280px;
+    }
+    .badge-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 900;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .badge-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--tx-sand);
+    }
+    .badge-star {
+      position: absolute; top: -18px; right: 1.5rem;
+      font-size: 2.2rem; color: #fff; line-height: 1;
+    }
+
+    /* ── STRIPE ── */
+    .stripe {
+      background: var(--tx-white);
+      padding: 0.9rem 4rem;
+      display: flex; align-items: center; gap: 3rem;
+      overflow: hidden; white-space: nowrap;
+    }
+    .stripe-item {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--tx-navy);
+      display: flex; align-items: center; gap: 0.6rem;
+      flex-shrink: 0;
+    }
+    .stripe-dot { width: 6px; height: 6px; background: var(--tx-navy); border-radius: 50%; }
+
+    /* ── SERVICES ── */
+    .section { padding: 6rem 4rem; }
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--tx-red);
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .section-label::after {
+      content: ''; flex: 1;
+      height: 1px; background: var(--tx-sand);
+      max-width: 200px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900; color: var(--tx-navy);
+      margin-bottom: 3rem;
+      line-height: 1.15;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+      background: var(--tx-sand);
+      border: 2px solid var(--tx-sand);
+    }
+    .service-card {
+      background: var(--tx-cream);
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: background 0.25s;
+      cursor: default;
+    }
+    .service-card:hover { background: var(--tx-blue); }
+    .service-card:hover .service-icon { color: var(--tx-gold); }
+    .service-card:hover .service-name { color: #fff; }
+    .service-card:hover .service-desc { color: rgba(245,241,232,0.7); }
+    .service-card:hover .service-line { background: var(--tx-gold); }
+    .service-icon {
+      font-size: 2rem; color: var(--tx-blue);
+      margin-bottom: 1.2rem;
+      transition: color 0.25s;
+    }
+    .service-line {
+      width: 28px; height: 3px; background: var(--tx-red);
+      margin-bottom: 1rem;
+      transition: background 0.25s;
+    }
+    .service-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.15rem; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: uppercase; color: var(--tx-navy);
+      margin-bottom: 0.75rem;
+      transition: color 0.25s;
+    }
+    .service-desc {
+      font-size: 0.92rem; font-weight: 400; line-height: 1.7;
+      color: #555;
+      transition: color 0.25s;
+    }
+
+    /* ── WHY US ── */
+    .why-section {
+      background: var(--tx-navy);
+      padding: 6rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .why-left .section-label { color: #fff; }
+    .why-left .section-label::after { background: rgba(255,255,255,0.1); }
+    .why-left .section-title { color: #fff; margin-bottom: 1.5rem; }
+    .why-desc {
+      font-size: 1rem; font-weight: 300; line-height: 1.8;
+      color: rgba(245,241,232,0.65);
+      margin-bottom: 2.5rem;
+    }
+    .why-list {
+      list-style: none; display: flex; flex-direction: column; gap: 1.1rem;
+    }
+    .why-list li {
+      display: flex; align-items: flex-start; gap: 1rem;
+      font-size: 0.95rem; color: rgba(245,241,232,0.85);
+      line-height: 1.5;
+    }
+    .why-check {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      background: var(--tx-red);
+      color: #fff; font-size: 0.7rem;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+      background: rgba(255,255,255,0.06);
+      border: 2px solid rgba(255,255,255,0.06);
+    }
+    .stat-box {
+      background: rgba(255,255,255,0.04);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    .stat-box:nth-child(1) { border-bottom: 2px solid rgba(255,255,255,0.04); }
+    .stat-box:nth-child(2) { border-bottom: 2px solid rgba(255,255,255,0.04); }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 900;
+      color: #fff; line-height: 1; margin-bottom: 0.4rem;
+    }
+    .stat-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(245,241,232,0.5);
+    }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      background: var(--tx-red);
+      padding: 6rem 4rem;
+      display: flex;
+      justify-content: center;
+    }
+    .contact-left {
+      max-width: 560px;
+      text-align: center;
+    }
+    .contact-left .section-label { justify-content: center; }
+    .contact-left .section-label::after { display: none; }
+    .contact-details { align-items: flex-start; }
+    .contact-item { text-align: left; }
+    .contact-left .section-label { color: #fff; }
+    .contact-left .section-label::after { background: rgba(255,255,255,0.25); }
+    .contact-left .section-title { color: #fff; margin-bottom: 1.25rem; }
+    .contact-tagline {
+      font-size: 1rem; font-weight: 300; line-height: 1.8;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 2.5rem;
+    }
+    .contact-details { display: flex; flex-direction: column; gap: 1.25rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .contact-ico {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: #fff; flex-shrink: 0;
+    }
+    .contact-item-text strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+      margin-bottom: 0.15rem;
+    }
+    .contact-item-text span {
+      font-size: 0.97rem; color: #fff;
+    }
+    /* ── FOOTER ── */
+    footer {
+      background: #000d24;
+      padding: 2rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 3px solid var(--tx-red);
+    }
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--tx-sand);
+    }
+    .footer-logo span { color: var(--tx-red); }
+    .footer-copy {
+      font-size: 0.78rem; color: rgba(245,241,232,0.35);
+    }
+    .footer-star { font-size: 1.4rem; color: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { min-height: 200px; }
+      .why-section { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-section { grid-template-columns: 1fr; gap: 3rem; }
+      .nav-links { display: none; }
+      .section { padding: 4rem 2rem; }
+      .why-section, .contact-section { padding: 4rem 2rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem 2rem; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+    .hero-title   { animation: fadeUp 0.6s ease 0.1s both; }
+    .hero-sub     { animation: fadeUp 0.6s ease 0.2s both; }
+    .hero-btns    { animation: fadeUp 0.6s ease 0.3s both; }
+    .hero-badge   { animation: fadeUp 0.6s ease 0.15s both; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span class="nav-star">★</span>
+    <div class="nav-brand">Lonestar <span>Paint &amp; Remodel</span><br>LLC</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get In Touch</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Serving Texas with Pride</p>
+    <h1 class="hero-title">
+      Built Tough.<br>Finished <em>Beautiful.</em>
+    </h1>
+    <p class="hero-sub">
+      From fresh paint to full remodels, Lonestar Paint &amp; Remodel LLC brings craftsmanship and Texas work ethic to every project — residential and commercial.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-outline">Get a Free Estimate</a>
+      <a href="#services" class="btn-outline">Our Services</a>
+      <a href="gallery.html" class="btn-outline">View Gallery</a>
+      <a href="reviews.html" class="btn-outline">Read Reviews</a>
+    </div>
+  </div>
+  <div class="hero-right"></div>
+</section>
+
+<!-- STRIPE -->
+<div class="stripe">
+  <div class="stripe-item"><span class="stripe-dot"></span> Interior Painting</div>
+  <div class="stripe-item"><span class="stripe-dot"></span> Exterior Painting</div>
+  <div class="stripe-item"><span class="stripe-dot"></span> Flooring</div>
+  <div class="stripe-item"><span class="stripe-dot"></span> Drywall &amp; Texture</div>
+  <div class="stripe-item"><span class="stripe-dot"></span> Trim &amp; Carpentry</div>
+  <div class="stripe-item"><span class="stripe-dot"></span> Cabinet Refinishing</div>
+</div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <p class="section-label">What We Do</p>
+  <h2 class="section-title">Our Services</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🖌️</div>
+      <div class="service-line"></div>
+      <div class="service-name">Interior Painting</div>
+      <p class="service-desc">Precision prep and flawless finishes for every room. We use premium paints that look great and last.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏠</div>
+      <div class="service-line"></div>
+      <div class="service-name">Exterior Painting</div>
+      <p class="service-desc">Curb appeal that stands up to Texas heat and weather. Power washing, caulking, and expert application.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔨</div>
+      <div class="service-line"></div>
+      <div class="service-name">Drywall &amp; Texture</div>
+      <p class="service-desc">Repairs, hang, tape, float, and texture matching — we make walls look like nothing ever happened.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📐</div>
+      <div class="service-line"></div>
+      <div class="service-name">Trim &amp; Carpentry</div>
+      <p class="service-desc">Crown molding, baseboards, casings, and custom trim details that give your home a finished, polished edge.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section" id="about">
+  <div class="why-left">
+    <p class="section-label">Why Lonestar</p>
+    <h2 class="section-title">Texas-Built Quality You Can Count On</h2>
+    <p class="why-desc">
+      We're a locally owned and operated business built on honesty, hard work, and pride in our craft. When we show up to your home, we treat it like our own.
+    </p>
+    <ul class="why-list">
+      <li><span class="why-check">✓</span> Transparent estimates — no hidden fees or surprises</li>
+      <li><span class="why-check">✓</span> We clean up completely before we leave</li>
+      <li><span class="why-check">✓</span> Satisfaction guaranteed on every job</li>
+      <li><span class="why-check">✓</span> Responsive communication from start to finish</li>
+    </ul>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-num">★★★★★</div>
+      <div class="stat-label">5-Star Rated</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Years of Experience</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Quality Assured</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">FREE</div>
+      <div class="stat-label">Estimates Always</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-left">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Let's Talk About Your Project</h2>
+    <p class="contact-tagline">
+      Ready for a free estimate? Reach out and we'll get back to you fast. No pressure, no obligation.
+    </p>
+    <div class="contact-details">
+      <div class="contact-item">
+        <div class="contact-ico">🤠</div>
+        <div class="contact-item-text">
+          <strong>Owner</strong>
+          <span>Antonio Roman</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-ico">📞</div>
+        <div class="contact-item-text">
+          <strong>Phone</strong>
+          <span>(737) 781-7921</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-ico">✉️</div>
+        <div class="contact-item-text">
+          <strong>Email</strong>
+          <span>lonestarpaintllc@gmail.com</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-ico">📍</div>
+        <div class="contact-item-text">
+          <strong>Service Area</strong>
+          <span>Austin &amp; Surrounding Areas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lonestar <span>Paint &amp; Remodel</span> LLC</div>
+  <div class="footer-copy">© 2025 Lonestar Paint &amp; Remodel LLC. All rights reserved.</div>
+  <div class="footer-star">★</div>
+</footer>
+
+</body>
+</html>
